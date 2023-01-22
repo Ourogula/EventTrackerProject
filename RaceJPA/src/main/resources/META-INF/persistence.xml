@@ -5,6 +5,8 @@
     </provider>
     <!-- Entities START -->
     <class>com.ourogula.racedb.entities.Race</class>
+    <class>com.ourogula.racedb.entities.Language</class>
+    <class>com.ourogula.racedb.entities.Series</class>
     
     <!-- Entities END -->
 

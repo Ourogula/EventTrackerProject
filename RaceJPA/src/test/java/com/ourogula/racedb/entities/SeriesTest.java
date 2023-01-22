@@ -1,7 +1,6 @@
 package com.ourogula.racedb.entities;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -13,11 +12,11 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class RaceTest {
+class SeriesTest {
 
 	private static EntityManagerFactory emf;
 	private EntityManager em;
-	private Race race;
+	private Series series;
 	
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -32,20 +31,20 @@ class RaceTest {
 	@BeforeEach
 	void setUp() throws Exception {
 	    em = emf.createEntityManager();
-		race = em.find(Race.class, 1);
+	    series = em.find(Series.class, 1);
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
-		race = null;
+		series = null;
 	    em.close();
 	}
 
 	
 	@Test
 	void test_Race_Mappings() {
-		assertNotNull(race);
-		assertEquals("Yuki Onna", race.getName());
+		assertNotNull(series);
+		assertEquals("Non Fiction", series.getName());
 	}
 
 }
