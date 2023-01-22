@@ -25,6 +25,8 @@ public class Race {
 	private String physicalTraits;
 	private String planet;
 	private String region;
+	@Column(name="image_url")
+	private String imageUrl;
 	@ManyToOne
 	@JoinColumn(name="language_id")
 	private Language language;
@@ -99,6 +101,14 @@ public class Race {
 		this.region = region;
 	}
 
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
+
 	public Language getLanguage() {
 		return language;
 	}
@@ -136,7 +146,8 @@ public class Race {
 	public String toString() {
 		return "Race [id=" + id + ", name=" + name + ", description=" + description + ", lore=" + lore
 				+ ", personalityTraits=" + personalityTraits + ", physicalTraits=" + physicalTraits + ", planet="
-				+ planet + ", region=" + region + ", language=" + language + ", series=" + series + "]";
+				+ planet + ", region=" + region + ", imageUrl=" + imageUrl + ", language=" + language + ", series="
+				+ series + "]";
 	}
 	
 	
