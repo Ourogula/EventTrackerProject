@@ -10,7 +10,7 @@ Access to the API is available at the following URL: http://52.15.43.38:8080/Rac
 |-----------|----------------------|--------------|---------------|
 | GET       | `/api/races`    |              | JSON of `List<Race>` |
 | GET       | `/api/races/17` |              | JSON of `Race` 17 |
-| GET       | `/api/races/search/Yuki` |              | JSON of 'List<Race>' with name matching Yuki |
+| GET       | `/api/races/search/Yuki` |              | JSON of `List<Race>` with name matching Yuki |
 | POST      | `/api/races`    | JSON of a new `Race` | JSON of created `Race` |
 | PUT       | `/api/races/17` | JSON of a new version of `Race` 17 | JSON of updated `Race` |
 | DELETE    | `/api/races/17` |              | |
