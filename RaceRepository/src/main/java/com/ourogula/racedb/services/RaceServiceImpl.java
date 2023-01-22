@@ -38,9 +38,17 @@ public class RaceServiceImpl implements RaceService {
 	}
 
 	@Override
-	public List<Race> findRacesByKeyword(String keyword) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Race> findRacesByNameKeyword(String keyword) {
+		List<Race> output = null;
+		if (keyword != null) {
+			keyword = "%" + keyword + "%";
+			output = repo.findByNameLike(keyword);
+		}
+		if (output != null && output.isEmpty()) {
+			output = null;
+		}
+		
+		return output;
 	}
 
 	@Override

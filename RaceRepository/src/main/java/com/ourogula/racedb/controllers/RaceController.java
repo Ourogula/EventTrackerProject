@@ -39,6 +39,15 @@ public class RaceController {
 		}
 		return output;
 	}
+	
+	@GetMapping("races/search/{keyword}")
+	public List<Race> findRacesByNameKeyword(@PathVariable String keyword, HttpServletResponse resp) {
+		List<Race> output = raceService.findRacesByNameKeyword(keyword);
+		if (output == null) {
+			resp.setStatus(404);
+		}
+		return output;
+	}
 
 	@PostMapping("races")
 	public Race createRace(@RequestBody Race createMe, HttpServletResponse resp) {
