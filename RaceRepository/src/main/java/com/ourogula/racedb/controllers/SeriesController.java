@@ -66,11 +66,14 @@ public class SeriesController {
 
 	@DeleteMapping("series/{id}")
 	public void deleteSeries(@PathVariable int id, HttpServletResponse resp) {
+		try {
 		Boolean success = seriesService.deleteSeries(id);
 		if (success) {
 			resp.setStatus(204);
 		} else {
 			resp.setStatus(404);
+		}} catch (Exception e) {
+			resp.setStatus(400);
 		}
 	}
 }

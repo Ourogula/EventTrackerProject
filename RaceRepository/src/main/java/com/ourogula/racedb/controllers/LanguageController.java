@@ -66,11 +66,14 @@ public class LanguageController {
 	
 	@DeleteMapping("languages/{id}")
 	public void deleteLanguage(@PathVariable int id, HttpServletResponse resp) {
+		try {
 		Boolean success = langService.deleteLanguage(id);
 		if (success) {
 			resp.setStatus(204);
 		} else {
 			resp.setStatus(404);
+		}} catch (Exception e) {
+			resp.setStatus(400);
 		}
 	}
 }
