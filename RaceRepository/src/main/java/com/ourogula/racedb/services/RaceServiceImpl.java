@@ -3,6 +3,7 @@ package com.ourogula.racedb.services;
 import java.util.List;
 import java.util.Optional;
 
+import org.hibernate.internal.build.AllowSysOut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -61,9 +62,8 @@ public class RaceServiceImpl implements RaceService {
 				createMe.setLanguage(raceLang.get());
 			}
 		}
-		
 		if (createMe.getSeries() == null) {
-			createMe.setSeries(seriesRepo.findById(1).get());
+			createMe.setSeries(seriesRepo.findById(2).get());
 		} else {
 			Optional<Series> raceSeries = seriesRepo.findById(createMe.getSeries().getId());
 			if (raceSeries.isPresent()) {

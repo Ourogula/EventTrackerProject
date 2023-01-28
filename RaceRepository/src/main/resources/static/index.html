@@ -1,12 +1,76 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>Front end of Race Repo</title>
-    <script type="text/javascript" src="js/script.js"></script>
-  </head>
-  <body>
-    Info
-    <div id="raceData"></div>
-  </body>
+<head>
+<meta charset="utf-8">
+<title>Front end of Race Repo</title>
+<script type="text/javascript" src="js/script.js"></script>
+</head>
+<body>
+	Info
+	<div id="raceForm">
+		<form id="createRaceForm">
+			<input type="text" placeholder="Name" name="name" REQUIRED> <input
+				type="text" placeholder="Description" name="description"> <input
+				type="text" placeholder="Lore" name="lore"> <input
+				type="text" placeholder="Personality Traits"
+				name="personalityTraits"> <input type="text"
+				placeholder="Physical Traits" name="physicalTraits"> <input
+				type="text" placeholder="Planet" name="planet"> <input
+				type="text" placeholder="Region" name="region"> 
+				<select
+				id="creationLanguageSelections">
+			</select> 
+			<select id="creationSeriesSelections">
+			</select>
+			<button type="submit" value="Submit" id="createFormButton">Create</button>
+		</form>
+		<form id="updateRaceForm" style="display:none">
+			<input
+				type="text" placeholder="Description" name="description"> <input
+				type="text" placeholder="Lore" name="lore"> <input
+				type="text" placeholder="Personality Traits"
+				name="personalityTraits"> <input type="text"
+				placeholder="Physical Traits" name="physicalTraits"> <input
+				type="text" placeholder="Planet" name="planet"> <input
+				type="text" placeholder="Region" name="region"> 
+				<select
+				id="updateLanguageSelections">
+			</select> 
+			<select id="updateSeriesSelections">
+			</select>
+			<button type="submit" value="Submit" id="updateFormButton">Update</button>
+		</form>
+	</div>
+	<br/>
+	<br/>
+	<div id="raceData">
+		<table id="singleRaceTable" style="display: none;">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Name</th>
+					<th>Description</th>
+					<th>Lore</th>
+					<th>Personality Traits</th>
+					<th>Physical Traits</th>
+					<th>Planet</th>
+					<th>Region</th>
+					<th>Series</th>
+					<th>Language</th>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
+		<table id="raceTable">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Name</th>
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
+	</div>
+</body>
 </html>
