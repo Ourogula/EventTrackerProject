@@ -6,14 +6,18 @@ window.addEventListener('load', (event) => {
 })
 
 function onInit() {
+	document.getElementById(`createFormButton`).addEventListener('click', function (e) {
+		console.log(e.target);
+		e.preventDefault();
+		createRace();
+	});
 	loadRaces();
-	document.getElementById(`createFormButton`).addEventListener('click', createRace);
 }
 
 function loadRaces() {
 	insertSeries(document.getElementById(`creationSeriesSelections`));
 	insertLanguages(document.getElementById(`creationLanguageSelections`));
-	
+
 	let xhr = new XMLHttpRequest();
 
 	xhr.open('GET', 'api/races');
@@ -32,144 +36,125 @@ function loadRaces() {
 	xhr.send();
 }
 
-//
+//Display all races
 function displayRaces(races) {
+	let counts = undefined;
+	counts = {};
+	let statsTableBody = document.getElementById('statistics').firstElementChild.nextElementSibling;
+	while(statsTableBody.firstElementChild){
+		statsTableBody.removeChild(statsTableBody.firstChild);
+	}
+	let racesTableBody = document.getElementById('raceTable').firstElementChild.nextElementSibling;
+	while(racesTableBody.firstElementChild){
+		racesTableBody.removeChild(racesTableBody.firstChild);
+	}
+	
 	for (let race of races) {
 		let tr = document.createElement('tr');
-		
-		let id = document.createElement('td');
-		id.textContent = race.id;
-		tr.appendChild(id);
-		
-		let name = document.createElement('td');
-		name.textContent = race.name;
-		tr.appendChild(name);
-		
 		tr.addEventListener('click', function(e) {
 			let raceId = e.target.parentElement.firstElementChild.textContent;
 			displaySingleRace(raceId);
+		});
+
+		let id = document.createElement('td');
+		id.textContent = race.id;
+		id.id = "race" + race.id;
+		tr.appendChild(id);
+
+		let name = document.createElement('td');
+		name.textContent = race.name;
+		tr.appendChild(name);
+
+		let updateCell = document.createElement('td');
+		updateCell.textContent = 'UPDATE';
+		updateCell.addEventListener('click', function(e) {
+			let raceId = e.target.parentElement.firstElementChild.textContent;
+			
+			getSingleRace(raceId);
+		})
+		tr.appendChild(updateCell);
+
+		let deleteCell = document.createElement('td');
+		deleteCell.textContent = 'DELETE';
+		deleteCell.addEventListener('click', function(e) {
+			let raceId = e.target.parentElement.firstElementChild.textContent;
+			deleteRace(raceId);
+		})
+		tr.appendChild(deleteCell);
+
+
+		document.getElementById('raceTable').firstElementChild.nextElementSibling.appendChild(tr);
+		
+		if (counts[race.series.name]) {
+						counts[race.series.name] += 1;
+					} else {
+						counts[race.series.name] = 1;
+					}
 		}
-		);
-		document.getElementById('raceTable').firstElementChild.nextElementSibling.appendChild(tr);;
-	}
+		for (let s in counts) {
+					let tr = document.createElement('tr');
+					let ser = document.createElement('td');
+					ser.textContent = s;	
+					tr.appendChild(ser);				
+					let num = document.createElement('td');	
+					num.textContent = counts[s];
+					tr.appendChild(num);
+					let stats = document.getElementById('statistics').firstElementChild.nextElementSibling;
+					stats.appendChild(tr);				
+		}
+	
 }
 
 //Display a single race's full details
 function displaySingleRace(raceId) {
 	while (document.getElementById('singleRaceTable').firstElementChild.nextElementSibling.firstElementChild) {
-				document.getElementById('singleRaceTable').firstElementChild.nextElementSibling.removeChild(document.getElementById('singleRaceTable').firstElementChild.nextElementSibling.firstChild);
-			}
+		document.getElementById('singleRaceTable').firstElementChild.nextElementSibling.removeChild(document.getElementById('singleRaceTable').firstElementChild.nextElementSibling.firstChild);
+	}
 
-			let xhr = new XMLHttpRequest();
-
-			//Update to take in the id of the clicked row
-			xhr.open('GET', 'api/races/' + raceId);
-
-			xhr.onreadystatechange = () => {
-				if (xhr.readyState === 4) {
-					if (xhr.status === 200) {
-						let table = document.getElementById('singleRaceTable');
-						let race = JSON.parse(xhr.responseText);
-						let tr = document.createElement('tr');
-						let id = document.createElement('td');
-						id.textContent = race.id;
-						tr.appendChild(id);
-						let name = document.createElement('td');
-						name.textContent = race.name;
-						tr.appendChild(name);
-						let description = document.createElement('td');
-						description.textContent = race.description;
-						tr.appendChild(description);
-						let lore = document.createElement('td');
-						lore.textContent = race.lore;
-						tr.appendChild(lore);
-						let personTraits = document.createElement('td');
-						personTraits.textContent = race.personalityTraits;
-						tr.appendChild(personTraits);
-						let physTraits = document.createElement('td');
-						physTraits.textContent = race.physicalTraits;
-						tr.appendChild(physTraits);
-						let planet = document.createElement('td');
-						planet.textContent = race.planet;
-						tr.appendChild(planet);
-						let region = document.createElement('td');
-						region.textContent = race.region;
-						tr.appendChild(region);
-						let series = document.createElement('td');
-						series.textContent = race.series.name;
-						tr.appendChild(series);
-						let language = document.createElement('td');
-						language.textContent = race.language.name;
-						tr.appendChild(language);
-
-						table.style = '';
-						table.firstElementChild.nextElementSibling.appendChild(tr);
-					} else if (xhr.status === 404) {
-						let raceData = document.getElementById('raceData');
-						raceData.textContent = 'Race not found';
-					}
-				}
-			}
-			xhr.send();
-
-}
-
-//Create a new race from a form
-function createRace() {
-	
-	let createForm = document.getElementById(`createRaceForm`);
-	if(createForm.name.value) {
-	let x = document.getElementById(`seriesSelections`).value;
-			console.log(x);
-	let race = {
-		name: createForm.name.value,
-		description: createForm.description.value,
-		lore: createForm.lore.value,
-		personalityTraits: createForm.personalityTraits.value,
-		physicalTraits: createForm.physicalTraits.value,
-		plane: createForm.planet.value,
-		region: createForm.region.value,
-	    series: {
-			
-			id: document.getElementById(`seriesSelections`).value
-			},
-		language: {
-			id: document.getElementById(`languageSelections`).value
-			}
-	}	
-	
 	let xhr = new XMLHttpRequest();
 
-	xhr.open('POST', 'api/races');
-	xhr.setRequestHeader('Content-type', 'application/json');
+	//Update to take in the id of the clicked row
+	xhr.open('GET', 'api/races/' + raceId);
 
 	xhr.onreadystatechange = () => {
 		if (xhr.readyState === 4) {
-			if (xhr.status === 200 || xhr.status === 201) {
+			if (xhr.status === 200) {
+				let table = document.getElementById('singleRaceTable');
 				let race = JSON.parse(xhr.responseText);
-				/*displaySingleRace(race.id);*/
-			} else if (xhr.status === 400) {
-				console.error('POST request failed');
-				console.error(xhr.status + ': ' + xhr.responseText);
+				let tr = document.createElement('tr');
+				let id = document.createElement('td');
+				id.textContent = race.id;
+				tr.appendChild(id);
+				let name = document.createElement('td');
+				name.textContent = race.name;
+				tr.appendChild(name);
+				let description = document.createElement('td');
+				description.textContent = race.description;
+				tr.appendChild(description);
+				let lore = document.createElement('td');
+				lore.textContent = race.lore;
+				tr.appendChild(lore);
+				let personTraits = document.createElement('td');
+				personTraits.textContent = race.personalityTraits;
+				tr.appendChild(personTraits);
+				let physTraits = document.createElement('td');
+				physTraits.textContent = race.physicalTraits;
+				tr.appendChild(physTraits);
+				let planet = document.createElement('td');
+				planet.textContent = race.planet;
+				tr.appendChild(planet);
+				let region = document.createElement('td');
+				region.textContent = race.region;
+				tr.appendChild(region);
+				let series = document.createElement('td');
+				series.textContent = race.series.name;
+				tr.appendChild(series);
+				let language = document.createElement('td');
+				language.textContent = race.language.name;
+				tr.appendChild(language);
 
-			}
-		}
-	}
-	xhr.send(JSON.stringify(race));
-	}
-}
-
-//Update a race from a form
-function updateRace(raceId) {
-	let xhr = new XMLHttpRequest();
-
-	xhr.open('PUT', 'api/races/' + raceId);
-
-	xhr.onreadystatechange = () => {
-		if (xhr.readyState === 4) {
-			if (xhr.status === 200 || xhr.status === 202) {
-				let races = JSON.parse(xhr.responseText);
-				displayRaces(races);
+				table.style = '';
+				table.firstElementChild.nextElementSibling.appendChild(tr);
 			} else if (xhr.status === 404) {
 				let raceData = document.getElementById('raceData');
 				raceData.textContent = 'Race not found';
@@ -177,6 +162,146 @@ function updateRace(raceId) {
 		}
 	}
 	xhr.send();
+
+}
+
+//Create a new race from a form
+function createRace() {
+
+	let createForm = document.getElementById(`createRaceForm`);
+	
+		let race = {
+			name: createForm.name.value,
+			description: createForm.description.value,
+			lore: createForm.lore.value,
+			personalityTraits: createForm.personalityTraits.value,
+			physicalTraits: createForm.physicalTraits.value,
+			plane: createForm.planet.value,
+			region: createForm.region.value,
+			series: {
+
+				id: document.getElementById(`creationSeriesSelections`).value
+			},
+			language: {
+				id: document.getElementById(`creationLanguageSelections`).value
+			}
+		}
+		
+		let xhr = new XMLHttpRequest();
+
+		xhr.open('POST', 'api/races');
+		xhr.setRequestHeader('Content-type', 'application/json');
+
+		xhr.onreadystatechange = () => {
+			if (xhr.readyState === 4) {
+				if (xhr.status === 200 || xhr.status === 201) {
+					let race = JSON.parse(xhr.responseText);
+					loadRaces();
+					displaySingleRace(race.id);
+				} else {
+					console.error('POST request failed');
+					console.error(xhr.status + ': ' + xhr.responseText);
+
+				}
+			}
+		}
+		xhr.send(JSON.stringify(race));
+	
+}
+
+//Show update Race Form
+function updateRaceForm(raceId, raceDefaults) {
+	insertSeries(document.getElementById(`updateSeriesSelections`));
+	insertLanguages(document.getElementById(`updateLanguageSelections`));
+	
+	let updateForm = document.getElementById(`updateRaceForm`);
+	updateForm.reset();
+	updateForm.parentElement.style = '';
+	updateForm.name = raceId;
+	
+	let updateButton = document.getElementById(`updateFormButton`);
+	
+	if (raceDefaults.description) {
+		updateForm.description.value = raceDefaults.description;
+	}
+	if (raceDefaults.lore) {
+		updateForm.lore.value = raceDefaults.lore;
+	}
+	if (raceDefaults.personalityTraits) {
+		updateForm.personalityTraits.value = raceDefaults.personalityTraits;
+	}
+	if (raceDefaults.physicalTraits) {
+		updateForm.physicalTraits.value = raceDefaults.physicalTraits;
+	}
+	if (raceDefaults.planet) {
+		updateForm.planet.value = raceDefaults.planet;
+	}
+	if (raceDefaults.region) {
+		updateForm.region.value = raceDefaults.region;
+	}
+	/*if (raceDefaults.series.id) {
+		for (let ser of document.getElementById('updateSeriesSelections').children) {
+			if (ser.value === raceDefaults.series.id) {
+				ser.selected = true;
+			}
+		}
+		[raceDefaults.series.id].selected = 'true';
+	}
+	if (raceDefaults.language.id) {
+		updateForm.language = raceDefaults.language.id;
+	}*/
+	
+	
+	updateButton.addEventListener('click', function(e) {
+		updateRace(e.target.parentElement.name);
+		console.log(e.target.parentElement.name)
+	})
+}
+
+//Update a race from a form
+function updateRace(raceId) {
+	let updateForm = document.getElementById(`updateRaceForm`);
+	let race = {
+			id: raceId,
+			name: document.getElementById("race" + raceId).nextElementSibling.textContent,
+			description: updateForm.description.value,
+			lore: updateForm.lore.value,
+			personalityTraits: updateForm.personalityTraits.value,
+			physicalTraits: updateForm.physicalTraits.value,
+			plane: updateForm.planet.value,
+			region: updateForm.region.value,
+			series: {
+
+				id: document.getElementById(`updateSeriesSelections`).value
+			},
+			language: {
+				id: document.getElementById(`updateLanguageSelections`).value
+			}
+		}
+	
+	let xhr = new XMLHttpRequest();
+
+	xhr.open('PUT', 'api/races/' + raceId);
+	xhr.setRequestHeader('Content-type', 'application/json');
+
+	xhr.onreadystatechange = () => {
+		if (xhr.readyState === 4) {
+			if (xhr.status === 200 || xhr.status === 202) {
+				let race = JSON.parse(xhr.responseText);
+				updateForm.parentElement.style = 'display:none;';
+				updateForm.reset();
+				let raceTableBody = document.getElementById('raceTable').firstElementChild.nextElementSibling;
+				while (raceTableBody.firstElementChild) {
+					raceTableBody.removeChild(raceTableBody.firstChild);
+				}
+				loadRaces();
+			} else if (xhr.status === 404) {
+				let raceData = document.getElementById('raceData');
+				raceData.textContent = 'Race not found';
+			}
+		}
+	}
+	xhr.send(JSON.stringify(race));
 }
 
 //Delete a race
@@ -187,9 +312,12 @@ function deleteRace(raceId) {
 
 	xhr.onreadystatechange = () => {
 		if (xhr.readyState === 4) {
-			if (xhr.status === 200) {
-				let races = JSON.parse(xhr.responseText);
-				displayRaces(races);
+			if (xhr.status === 200 || xhr.status === 204) {
+				let raceTableBody = document.getElementById('raceTable').firstElementChild.nextElementSibling;
+				while (raceTableBody.firstElementChild) {
+					raceTableBody.removeChild(raceTableBody.firstChild);
+				}
+				loadRaces();
 			} else if (xhr.status === 404) {
 				let raceData = document.getElementById('raceData');
 				raceData.textContent = 'Race not found';
@@ -203,6 +331,10 @@ function deleteRace(raceId) {
 
 //Grab languages for form input
 function insertLanguages(div) {
+	while (div.firstElementChild) {
+		div.removeChild(div.firstChild);
+	}
+	
 	let xhr = new XMLHttpRequest();
 
 	xhr.open('GET', 'api/languages');
@@ -215,8 +347,10 @@ function insertLanguages(div) {
 					option = document.createElement(`option`);
 					option.value = lang.id;
 					option.textContent = lang.name;
+					option.name = lang.name;
 					div.appendChild(option);
 				}
+				
 			} else if (xhr.status === 404) {
 				let raceData = document.getElementById('raceData');
 				raceData.textContent = 'Race not found';
@@ -228,6 +362,10 @@ function insertLanguages(div) {
 
 //Grab series for form input
 function insertSeries(div) {
+	while (div.firstElementChild) {
+		div.removeChild(div.firstChild);
+	}
+	
 	let xhr = new XMLHttpRequest();
 
 	xhr.open('GET', 'api/series');
@@ -236,12 +374,35 @@ function insertSeries(div) {
 		if (xhr.readyState === 4) {
 			if (xhr.status === 200) {
 				let series = JSON.parse(xhr.responseText);
+
 				for (let s of series) {
 					option = document.createElement(`option`);
 					option.value = s.id;
 					option.textContent = s.name;
+					option.name = s.name;
 					div.appendChild(option);
 				}
+				
+			} else if (xhr.status === 404) {
+				let raceData = document.getElementById('raceData');
+				raceData.textContent = 'Race not found';
+			}
+		}
+	}
+	xhr.send();
+}
+
+//Get Single Race for update params
+function getSingleRace(raceId) {
+	let xhr = new XMLHttpRequest();
+
+	xhr.open('GET', 'api/races/' + raceId);
+
+	xhr.onreadystatechange = () => {
+		if (xhr.readyState === 4) {
+			if (xhr.status === 200) {
+				let race = JSON.parse(xhr.responseText);
+				updateRaceForm(raceId, race);
 			} else if (xhr.status === 404) {
 				let raceData = document.getElementById('raceData');
 				raceData.textContent = 'Race not found';

@@ -4,47 +4,52 @@
 <meta charset="utf-8">
 <title>Front end of Race Repo</title>
 <script type="text/javascript" src="js/script.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 </head>
 <body>
-	Info
 	<div id="raceForm">
-		<form id="createRaceForm">
-			<input type="text" placeholder="Name" name="name" REQUIRED> <input
-				type="text" placeholder="Description" name="description"> <input
-				type="text" placeholder="Lore" name="lore"> <input
-				type="text" placeholder="Personality Traits"
-				name="personalityTraits"> <input type="text"
-				placeholder="Physical Traits" name="physicalTraits"> <input
-				type="text" placeholder="Planet" name="planet"> <input
-				type="text" placeholder="Region" name="region"> 
-				<select
-				id="creationLanguageSelections">
-			</select> 
-			<select id="creationSeriesSelections">
-			</select>
-			<button type="submit" value="Submit" id="createFormButton">Create</button>
-		</form>
-		<form id="updateRaceForm" style="display:none">
-			<input
-				type="text" placeholder="Description" name="description"> <input
-				type="text" placeholder="Lore" name="lore"> <input
-				type="text" placeholder="Personality Traits"
-				name="personalityTraits"> <input type="text"
-				placeholder="Physical Traits" name="physicalTraits"> <input
-				type="text" placeholder="Planet" name="planet"> <input
-				type="text" placeholder="Region" name="region"> 
-				<select
-				id="updateLanguageSelections">
-			</select> 
-			<select id="updateSeriesSelections">
-			</select>
-			<button type="submit" value="Submit" id="updateFormButton">Update</button>
-		</form>
+		<div id="createTitle">
+			<h3>Create a new Race</h3>
+			<form id="createRaceForm" class="form" style="text-align:center; vertical-align:center;">
+				<input type="text" placeholder="Name" name="name"  class="form-control" REQUIRED>
+				<input type="text" placeholder="Description" name="description" class="form-control">
+				<input type="text" placeholder="Lore" name="lore" class="form-control"> <input
+					type="text" placeholder="Personality Traits"
+					name="personalityTraits" class="form-control"> <input type="text"
+					placeholder="Physical Traits" name="physicalTraits" class="form-control"> <input
+					type="text" placeholder="Planet" name="planet" class="form-control"> <input
+					type="text" placeholder="Region" name="region" class="form-control"> 
+					<label for="creationLanguageSelections" class="form-label">Language Spoken</label>
+					<select
+					id="creationLanguageSelections"  class="form-control">
+				</select>
+				<label for="creationSeriesSelections" class="form-label">Source Series</label>
+				 <select id="creationSeriesSelections" class="form-control">
+				</select>
+				<button type="submit" value="Submit" id="createFormButton" class="btn btn-dark">Create</button>
+			</form>
+		</div>
+		<div id="updateTitle" style="display: none">
+			<h3>Update Race</h3>
+			<form id="updateRaceForm" class="form">
+				<input type="text" placeholder="Description" name="description">
+				<input type="text" placeholder="Lore" name="lore"> <input
+					type="text" placeholder="Personality Traits"
+					name="personalityTraits"> <input type="text"
+					placeholder="Physical Traits" name="physicalTraits"> <input
+					type="text" placeholder="Planet" name="planet"> <input
+					type="text" placeholder="Region" name="region"> <select
+					id="updateLanguageSelections">
+				</select> <select id="updateSeriesSelections">
+				</select>
+				<button type="submit" value="Submit" id="updateFormButton"  class="btn btn-dark">Update</button>
+			</form>
+		</div>
 	</div>
-	<br/>
-	<br/>
+	<br />
+	<br />
 	<div id="raceData">
-		<table id="singleRaceTable" style="display: none;">
+		<table id="singleRaceTable" class="table table-striped" style="display: none;">
 			<thead>
 				<tr>
 					<th>Id</th>
@@ -61,16 +66,37 @@
 			<tbody>
 			</tbody>
 		</table>
-		<table id="raceTable">
-			<thead>
-				<tr>
-					<th>Id</th>
-					<th>Name</th>
-				</tr>
-			</thead>
-			<tbody>
-			</tbody>
-		</table>
+		<div class="row">
+			<div class="col-8">
+				<table id="raceTable" class="table table-striped">
+					<thead>
+						<tr>
+							<th>Id</th>
+							<th>Name</th>
+							<th>Update</th>
+							<th>Delete</th>
+						</tr>
+					</thead>
+					<tbody>
+					</tbody>
+				</table>
+			</div>
+			<div class="col-4">
+				<table id="statistics" class="table table-striped">
+					<thead>
+						<tr>
+							<th>Series</th>
+							<th>#</th>
+							</tr>
+					</thead>
+					<tbody>
+					</tbody>
+				</table>
+
+			</div>
+		</div>
 	</div>
+	
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
 </body>
 </html>
