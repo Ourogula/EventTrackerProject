@@ -208,7 +208,7 @@ function createRace() {
 		lore: createForm.lore.value,
 		personalityTraits: createForm.personalityTraits.value,
 		physicalTraits: createForm.physicalTraits.value,
-		plane: createForm.planet.value,
+		planet: createForm.planet.value,
 		region: createForm.region.value,
 		series: {
 
@@ -228,6 +228,8 @@ function createRace() {
 		if (xhr.readyState === 4) {
 			if (xhr.status === 200 || xhr.status === 201) {
 				let race = JSON.parse(xhr.responseText);
+				let createForm = document.getElementById(`createRaceForm`);
+				createForm.reset();
 				loadRaces();
 				displaySingleRace(race.id);
 			} else {

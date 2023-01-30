@@ -1,0 +1,30 @@
+body {
+	background-color: #8cba8a80;
+}
+
+.centerMe {
+	text-align:center;
+	text-align-last: center;
+}
+
+.formatForm {
+	background-color: lavender;
+	font-family: revert;
+	margin-left: 250px;
+	margin-right: 250px;
+	padding-left: 0px;
+	padding-right: 0px;
+	border-radius: 20px;
+	margin-top: 25px;
+	font-weight: 600;
+}
+
+.contentRow {
+	background-color: floralwhite;
+	font-weight: 700;
+}
+
+.header {
+	background-color: black;
+	color: white;
+}

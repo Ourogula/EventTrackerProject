@@ -53,9 +53,13 @@ public class RaceController {
 	public Race createRace(@RequestBody Race createMe, HttpServletResponse resp) {
 		Race created = null;
 		try {
+			if (createMe.getName().equals("")) {
+				resp.setStatus(400);
+			} else {
 			created = raceService.createRace(createMe);
 			resp.setStatus(201);
 			resp.setHeader("Location", "races/" + created.getId());
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			resp.setStatus(400);

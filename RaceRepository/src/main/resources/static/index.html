@@ -2,45 +2,78 @@
 <html lang="en" dir="ltr">
 <head>
 <meta charset="utf-8">
-<title>Front end of Race Repo</title>
+<title>Race Repository</title>
 <script type="text/javascript" src="js/script.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+<link rel="stylesheet" href="css/main.css">
 </head>
 <body>
+<div class="row header">
+<div class="col-12">
+<br/>
+	<h1 class="centerMe">Race Repository</h1>
+	<br/>
+</div>
+</div>
 	<div id="raceForm">
-		<div id="createTitle">
+		<div id="createTitle" class="formatForm centerMe">
 			<h3>Create a new Race</h3>
-			<form id="createRaceForm" class="form" style="text-align:center; vertical-align:center;">
-				<input type="text" placeholder="Name" name="name"  class="form-control" REQUIRED>
-				<input type="text" placeholder="Description" name="description" class="form-control">
-				<input type="text" placeholder="Lore" name="lore" class="form-control"> <input
-					type="text" placeholder="Personality Traits"
-					name="personalityTraits" class="form-control"> <input type="text"
-					placeholder="Physical Traits" name="physicalTraits" class="form-control"> <input
-					type="text" placeholder="Planet" name="planet" class="form-control"> <input
-					type="text" placeholder="Region" name="region" class="form-control"> 
-					<label for="creationLanguageSelections" class="form-label">Language Spoken</label>
+			<form id="createRaceForm" class="form">
+				<label for="creationName" class="form-label">Name *</label>
+				<input type="text" id="creationName" placeholder="Name" name="name"  class="form-control" required>
+				<label for="creationLore" class="form-label">Description</label>
+				<input type="text" id="creationDescription" placeholder="Description" name="description" class="form-control">
+				<label for="creationLore" class="form-label"> Lore</label>
+				<input type="text" id="creationLore" placeholder="Lore" name="lore" class="form-control"> 
+				<label for="creationPersonalityTraits" class="form-label">Personality Traits</label>
+				<input
+					type="text" id="creationPersonalityTraits" placeholder="Personality Traits"
+					name="personalityTraits" class="form-control"> 
+					<label for="creationPhysicalTraits" class="form-label">Physical Traits</label>
+					<input type="text"
+					placeholder="Physical Traits" id="creationPhysicalTraits" name="physicalTraits" class="form-control"> 
+					<label for="creationPlanet" class="form-label">Planet</label>
+					<input
+					type="text" id="creationPlanet" placeholder="Planet" name="planet" class="form-control"> 
+					<label for="creationRegion" class="form-label">Region</label>
+					<input
+					type="text" id="creationRegion" placeholder="Region" name="region" class="form-control"> 
+					<label for="creationLanguageSelections" class="form-label">Language Spoken *</label>
 					<select
-					id="creationLanguageSelections"  class="form-control">
+					id="creationLanguageSelections"  class="form-select">
 				</select>
-				<label for="creationSeriesSelections" class="form-label">Source Series</label>
-				 <select id="creationSeriesSelections" class="form-control">
+				<label for="creationSeriesSelections" class="form-label">Source Series *</label>
+				 <select id="creationSeriesSelections" class="form-select">
 				</select>
-				<button type="submit" value="Submit" id="createFormButton" class="btn btn-dark">Create</button>
+				<button type="submit" value="Submit" id="createFormButton" class="btn btn-dark" style="text-align:center; vertical-align:center;">Create</button>
 			</form>
 		</div>
-		<div id="updateTitle" style="display: none">
+		<div id="updateTitle" style="display: none" class="formatForm centerMe">
 			<h3>Update Race</h3>
 			<form id="updateRaceForm" class="form">
-				<input type="text" placeholder="Description" name="description">
-				<input type="text" placeholder="Lore" name="lore"> <input
-					type="text" placeholder="Personality Traits"
-					name="personalityTraits"> <input type="text"
-					placeholder="Physical Traits" name="physicalTraits"> <input
-					type="text" placeholder="Planet" name="planet"> <input
-					type="text" placeholder="Region" name="region"> <select
-					id="updateLanguageSelections">
-				</select> <select id="updateSeriesSelections">
+				<label for="updateDescription" class="form-label">Description</label>
+				<input type="text" id="updateDescription" placeholder="Description" name="description" class="form-control">
+				<label for="updateLore" class="form-label">Lore</label>
+				<input type="text" id="updateLore" placeholder="Lore" name="lore" class="form-control"> 
+				<label for="updatePersonalityTraits" class="form-label">Personality Traits</label>
+				<input
+					type="text" id="updatePersonalityTraits" placeholder="Personality Traits"
+					name="personalityTraits" class="form-control"> 
+					<label for="updatePhysicalTraits" class="form-label">Physical Traits</label>
+					<input type="text"
+					placeholder="Physical Traits" id="updatePhysicalTraits" name="physicalTraits" class="form-control"> 
+					<label for="updatePlanet" class="form-label">Planet</label>
+					<input
+					type="text" id="updatePlanet" placeholder="Planet" name="planet" class="form-control"> 
+					<label for="updateRegion" class="form-label">Region</label>
+					<input
+					type="text" id="updateRegion" placeholder="Region" name="region" class="form-control"> 
+					<label for="updateLanguageSelections" class="form-label">Language Spoken</label>
+					<select
+					id="updateLanguageSelections" class="form-select">
+				</select>
+				<label for="updateSeriesSelections" class="form-label">Source Series</label>
+				 <select id="updateSeriesSelections" class="form-select">
 				</select>
 				<button type="submit" value="Submit" id="updateFormButton"  class="btn btn-dark">Update</button>
 			</form>
@@ -48,7 +81,7 @@
 	</div>
 	<br />
 	<br />
-	<div id="raceData">
+	<div id="raceData" class="contentRow">
 		<table id="singleRaceTable" class="table table-striped" style="display: none;">
 			<thead>
 				<tr>
