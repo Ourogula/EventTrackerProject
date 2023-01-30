@@ -9,6 +9,8 @@ There are two tables to the right of the race table. One table shows the current
 
 This project uses an implementation of RESTful API using Java and Spring JPA to query a MySQL database. There is one main entity, Race, that describes a Race or Species of person. This is to include fictional and non-fictional races such as Klingon, Human, Kha'jit, and other Races/Species. The idea behind this project is to act as access to a data repository of all races in existence.
 
+Access to the web application is available at the following URL: http://52.15.43.38:8080/RaceRepository/
+
 Access to the API is available at the following URL: http://52.15.43.38:8080/RaceRepository/api/
 
 # API Calls
