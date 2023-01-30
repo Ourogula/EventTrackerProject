@@ -40,8 +40,10 @@ Learning to account for asynchronous programming in JavaScript was a big factor 
 
 # Technologies Used
 * Java
+* JavaScript
 * Spring JPA
 * Spring Boot
+* HTML/CSS
 * Git
 * Gradle
 * MySQL
