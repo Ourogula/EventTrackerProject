@@ -1,0 +1,39 @@
+<form class="form centerMe">
+
+  <span class="form-label" for="createName">
+    Name:
+  </span>
+  <div class="input-group">
+
+    <input type="text" class="form-control" name="createName" [(ngModel)]="createMe.name">
+  </div>
+  <span>
+    Description:
+    <input type="text" class="form-control" name="createDescription" [(ngModel)]="createMe.description">
+  </span>
+  <span>
+    Lore:
+    <input type="text" class="form-control" name="createLore" [(ngModel)]="createMe.lore">
+  </span>
+  <span>
+    Personality Traits:
+    <input type="text" class="form-control" name="createPersonalityTraits" [(ngModel)]="createMe.personalityTraits">
+  </span>
+  <span>
+    Physical Traits:
+    <input type="text" class="form-control" name="createPhysicalTraits" [(ngModel)]="createMe.physicalTraits">
+  </span>
+  <span>
+    Planet:
+    <input type="text" class="form-control" name="createPlanet" [(ngModel)]="createMe.planet">
+  </span>
+  <span>
+    Region:
+    <input type="text" class="form-control" name="createRegion" [(ngModel)]="createMe.region">
+  </span>
+  <span>
+    Image URL:
+    <input type="text" class="form-control" name="createImageUrl" [(ngModel)]="createMe.imageUrl">
+  </span>
+  <button name="createButton" class="btn btn-primary" (click)="create(createMe)">Create Race</button>
+</form>

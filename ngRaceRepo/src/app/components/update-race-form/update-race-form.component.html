@@ -1,0 +1,35 @@
+<div class="centerMe">
+<span>
+Name:
+  <input type="text" [(ngModel)]="updateMe.name">
+</span>
+<span>
+Description:
+<input type="text" class="form-control" name="createDescription" [(ngModel)]="updateMe.description">
+</span>
+<span>
+Lore:
+<input type="text" class="form-control" name="createLore" [(ngModel)]="updateMe.lore">
+</span>
+<span>
+Personality Traits:
+<input type="text" class="form-control" name="createPersonalityTraits" [(ngModel)]="updateMe.personalityTraits">
+</span>
+<span>
+Physical Traits:
+<input type="text" class="form-control" name="createPhysicalTraits" [(ngModel)]="updateMe.physicalTraits">
+</span>
+<span>
+Planet:
+<input type="text" class="form-control" name="createPlanet" [(ngModel)]="updateMe.planet">
+</span>
+<span>
+Region:
+<input type="text" class="form-control" name="createRegion" [(ngModel)]="updateMe.region">
+</span>
+<span>
+Image URL:
+<input type="text" class="form-control" name="createImageUrl" [(ngModel)]="updateMe.imageUrl">
+</span>
+  <button class="btn btn-primary" (click)="update(updateMe)">Update</button>
+</div>

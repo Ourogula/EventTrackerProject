@@ -1,0 +1,46 @@
+<div name="raceList" >
+  <div class=" row rowBg">
+    <br/>
+  </div>
+  <div class="row rowBg">
+    <div class="col-2">
+      <span>Show Full Details <input type="checkbox" [(ngModel)]="showDetails"></span>
+    </div>
+      <div class="col-2">
+      <span>Show Controls <input type="checkbox" [(ngModel)]="showControls"></span>
+    </div>
+  </div>
+  <div class="row rowBg">
+    <hr/>
+  </div>
+  <table class="table table-striped table-primary">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+          <th *ngIf="showDetails">Description</th>
+          <th *ngIf="showDetails">Lore</th>
+          <th *ngIf="showDetails">Personality Traits</th>
+          <th *ngIf="showDetails">Physical Traits</th>
+          <th *ngIf="showDetails">Planet</th>
+          <th *ngIf="showDetails">Region</th>
+          <th *ngIf="showControls">Update</th>
+          <th *ngIf="showControls">Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let race of races">
+          <td>{{race.id}}</td>
+          <td>{{race.name}}</td>
+          <td *ngIf="showDetails">{{race.description}}</td>
+          <td *ngIf="showDetails">{{race.lore}}</td>
+          <td *ngIf="showDetails">{{race.personalityTraits}}</td>
+          <td *ngIf="showDetails">{{race.physicalTraits}}</td>
+          <td *ngIf="showDetails">{{race.planet}}</td>
+          <td *ngIf="showDetails">{{race.region}}</td>
+          <td *ngIf="showControls"><button class="btn btn-warning" (click)="updateRedirect(race.id)">Update</button></td>
+          <td *ngIf="showControls"><button class="btn btn-danger" (click)="delete(race.id)">Delete</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
